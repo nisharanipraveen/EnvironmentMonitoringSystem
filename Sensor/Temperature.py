@@ -65,8 +65,9 @@ def read_temperature():
     return round(temperature, 2)
 
 # Test the sensor
-if __name__ == "__main__":
-    while True:
-        temp = read_temperature()
-        print(f"Temperature: {temp}°C")
-        time.sleep(1)
+# if __name__ == "__main__":
+#     while True:
+#         temp = read_temperature()
+#         insert_temperature(temp)
+#         print(f"Temperature: {temp}°C")
+#         time.sleep(1)
