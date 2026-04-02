@@ -32,7 +32,7 @@ class TemperatureDB:
         self.conn.close()
 
 if __name__ == "__main__":
-    temp_db = TemperatureBD()
+    temp_db = TemperatureDB()
     for _ in range(5):
         temp = read_temperature()
         temp_db.insert_temperature(temp)
