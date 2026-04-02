@@ -2,7 +2,7 @@ from Sensor.temp_reading import *
 import sqlite3
 from datetime import datetime
 
-class TemperatureBD:
+class TemperatureDB:
     def __init__(self):
         # 1. Connect to SQLite DB (creates file if not exists)
         self.conn = sqlite3.connect("temperature.db")
