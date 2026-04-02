@@ -4,7 +4,7 @@ import time
 
 from datetime import datetime
 
-from Sensor import Temperature
+from Temperature import Temperature
 
 try:
     import smbus # type: ignore
@@ -62,11 +62,14 @@ def read_temperature():
 
     # Convert raw value to temperature
     # temperature = T0_degC + (Temp_out - T0_out) * (T1_degC - T0_degC) / (T1_out - T0_out)
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     if (T1_out - T0_out) == 0:
-        temperature = Temperature(0, )
-        return 0  # or None or default value
+        temperature = Temperature(0, timestamp)
+        return temperature  # or None or default value
 
     temperature = T0_degC + (Temp_out - T0_out) * (T1_degC - T0_degC) / (T1_out - T0_out)
+    temperature = round(temperature, 2)
+    temperature = Temperature(temperature, timestamp)
     return round(temperature, 2)
 
 # Test the sensor
