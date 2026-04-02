@@ -1,6 +1,8 @@
-from Sensor.temp_reading import *
+from temp_reading import read_temperature
+from Temperature import Temperature
 import sqlite3
 from datetime import datetime
+from time import sleep
 
 class TemperatureDB:
     def __init__(self):
@@ -23,7 +25,7 @@ class TemperatureDB:
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         self.cursor.execute(
             "INSERT INTO temperature_log (temperature, timestamp) VALUES (?, ?)",
-            (temp, timestamp)
+            (temp.value, temp.timestamp)
         )
         self.conn.commit()
 
@@ -37,7 +39,8 @@ if __name__ == "__main__":
         temp = read_temperature()
         temp_db.insert_temperature(temp)
         print(f"Saved: {temp} at {datetime.now()}")
-        time.sleep(1)
+        sleep(1)
+    
 
     temp_db.close()
 
