@@ -4,7 +4,7 @@ import time
 
 from datetime import datetime
 
-from Temperature import Temperature
+from .Temperature import Temperature
 
 try:
     import smbus # type: ignore
