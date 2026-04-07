@@ -1,10 +1,10 @@
 class Temperature:
     def __init__(self, value, time):
-        self.value = value
-        self.timestamp = time
+        self.__value = value
+        self.__timestamp = time
 
     def get_value(self):
-        return self.value
+        return self.__value
     
     def get_timestamp(self):
-        return self.timestamp
+        return self.__timestamp

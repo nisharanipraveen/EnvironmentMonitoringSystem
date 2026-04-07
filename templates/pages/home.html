@@ -2,6 +2,7 @@
 
 {% block header %}
   <h2>{% block title %}Home{% endblock title %}</h2>
+  
 {% endblock header %}
 
 {% block content %}
@@ -11,8 +12,32 @@
 
 
   <hr>
+  <h3>
+  Temperature: <span id="temperature">--</span> °C
+  </h3>
 
-  <h3>Get Temperature Graph by Date</h3>
+  <script>
+    function fetchTemperature() {
+        fetch('/api/temperature')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('temperature').textContent = data.temperature;
+            })
+            .catch(error => {
+                console.error('Error fetching temperature:', error);
+                document.getElementById('temperature').textContent = 'Error';
+            });
+    }
+
+    // Fetch temperature every 5 seconds
+    setInterval(fetchTemperature, 5000);
+    // Initial fetch
+    fetchTemperature();
+  </script>
+  
+
+  <hr>
+  <h4>Get Temperature Graph by Date</h4>
 
   <label for="dateInput">Select Date:</label>
   <input type="date" id="dateInput" style="padding: 8px; font-size: 16px; margin-top: 5px;">

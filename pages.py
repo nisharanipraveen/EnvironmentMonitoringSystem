@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, jsonify
 from .TemperatureDB import TemperatureDB
+from .temp_reading import read_temperature, Temperature
 import matplotlib.dates as mdates
 from datetime import datetime
 import matplotlib.pyplot as plt
@@ -15,6 +16,18 @@ def home():
 @bp.route('/about')
 def about():
     return render_template('pages/about.html')
+
+@bp.route('/api/temperature', methods=['GET'])
+def get_temperature():
+    temperature = read_temperature()
+    temperature_db = TemperatureDB()
+    temperature_db.insert_temperature(temperature)
+    temperature_db.close()
+
+    return jsonify({
+        "temperature": temperature.get_value(),
+        "unit": "°C"
+    })
 
 
 @bp.route('/temperature-by-date', methods=['GET'])

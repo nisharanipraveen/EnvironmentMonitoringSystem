@@ -1,5 +1,5 @@
-from .temp_reading import read_temperature
-from .Temperature import Temperature
+# from .temp_reading import read_temperature
+# from .Temperature import Temperature
 import sqlite3
 from datetime import datetime
 from time import sleep
@@ -52,19 +52,19 @@ class TemperatureDB:
     def close(self):
         self.conn.close()
 
-if __name__ == "__main__":
-    temp_db = TemperatureDB()
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    value = 25.0  # Example temperature value
-    for _ in range(5):
-        # temp = read_temperature()
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        temp = Temperature(value, timestamp)  # Example temperature value
-        temp_db.insert_temperature(temp)
-        print(f"Saved: {temp} at {datetime.now()}")
-        sleep(1)
-        value += 0.5  # Increment temperature for testing
+# if __name__ == "__main__":
+#     temp_db = TemperatureDB()
+#     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+#     value = 25.0  # Example temperature value
+#     for _ in range(5):
+#         # temp = read_temperature()
+#         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+#         temp = Temperature(value, timestamp)  # Example temperature value
+#         temp_db.insert_temperature(temp)
+#         print(f"Saved: {temp} at {datetime.now()}")
+#         sleep(1)
+#         value += 0.5  # Increment temperature for testing
     
 
-    temp_db.close()
+#     temp_db.close()
 
