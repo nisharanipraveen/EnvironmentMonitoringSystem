@@ -42,6 +42,8 @@ def temperature_by_date():
         date_str, rows = temperaturedb.get_temperatures_by_date_from_timestamp(timestamp)
     except ValueError:
         return jsonify({"error": "Invalid timestamp"}), 400
+    
+    temperaturedb.close()
 
     if not rows:
         return jsonify({"message": f"No data for {date_str}"}), 404
