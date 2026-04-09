@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, request, jsonify
 from .TemperatureDB import TemperatureDB
 from .temp_reading import read_temperature, Temperature
+from .humidity_reading import read_humidity, Humidity
+from .HumidityDB import HumidityDB
 import matplotlib.dates as mdates
 from datetime import datetime
 import matplotlib.pyplot as plt
@@ -29,6 +31,24 @@ def get_temperature():
         "unit": "°C"
     })
 
+@bp.route('/api/humidity', methods=['GET'])
+def get_humidity():
+    humidity = read_humidity()
+    humidity_db = HumidityDB()
+    humidity_db.insert_humidity(humidity)
+    humidity_db.close()
+
+    return jsonify({
+        "humidity": humidity.get_value(),
+        "unit": "%"
+    })
+
+    return jsonify({
+        "temperature": temperature.get_value(),
+        "unit": "°C"
+    })
+
+
 
 @bp.route('/temperature-by-date', methods=['GET'])
 def temperature_by_date():
@@ -42,6 +62,8 @@ def temperature_by_date():
         date_str, rows = temperaturedb.get_temperatures_by_date_from_timestamp(timestamp)
     except ValueError:
         return jsonify({"error": "Invalid timestamp"}), 400
+    
+    temperaturedb.close()
 
     if not rows:
         return jsonify({"message": f"No data for {date_str}"}), 404

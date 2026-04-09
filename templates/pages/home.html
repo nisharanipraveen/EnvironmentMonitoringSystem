@@ -29,8 +29,19 @@
             });
     }
 
-    // Fetch temperature every 5 seconds
-    setInterval(fetchTemperature, 5000);
+    let tempInterval;
+
+    function startTemperatureUpdates() {
+        // Fetch temperature every 5 seconds
+        // setInterval(fetchTemperature, 5000)
+        // Fetch temperature every 1 hour
+        tempInterval = setInterval(fetchTemperature, 3600000);
+    }
+
+    function stopTemperatureUpdates() {
+        clearInterval(tempInterval);
+    }
+    startTemperatureUpdates();
     // Initial fetch
     fetchTemperature();
   </script>
@@ -52,6 +63,8 @@
 
   <script>
     function fetchTemperatureGraph() {
+        stopTemperatureUpdates();
+
         const dateValue = document.getElementById("dateInput").value;
 
         if (!dateValue) {
@@ -77,6 +90,9 @@
             .catch(error => {
                 console.error("Error:", error);
                 alert("Failed to fetch data");
+            })
+             .finally(() => {
+                startTemperatureUpdates();
             });
     }
   </script>
